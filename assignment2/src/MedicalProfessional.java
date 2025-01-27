@@ -15,6 +15,11 @@ public class MedicalProfessional extends Person {
         System.out.println("Doctor " + getName() + " is treating patients as a " + specialization);
     }
 
+    // Добавляем метод getSpecialization()
+    public String getSpecialization() {
+        return specialization;
+    }
+
     @Override
     public String toString() {
         return "MedicalProfessional{name='" + getName() + "', specialization='" + specialization + "'}";

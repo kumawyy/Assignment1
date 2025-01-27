@@ -2,33 +2,67 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Patient patient1 = new Patient("Ayadil", 16, "Flu");
-        Patient patient2 = new Patient("Almas", 60, "Diabetes");
-
-        MedicalProfessional doctor1 = new MedicalProfessional("Dr. Sanzhar", "Therapist");
-        MedicalProfessional doctor2 = new MedicalProfessional("Dr. Leonardo", "Endocrinologist");
-
-        Hospital hospital = new Hospital("City Hospital");
-
-        hospital.addPerson(patient1);
-        hospital.addPerson(patient2);
-        hospital.addPerson(doctor1);
-        hospital.addPerson(doctor2);
-
-        hospital.printHospitalInfo();
-        hospital.treatAll();
-
         Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
 
-        System.out.print("Enter the name of the person to search: ");
-        String nameToSearch = scanner.nextLine();  // Считываем имя
+        while (!exit) {
+            System.out.println("\n=== Menu ===");
+            System.out.println("1. Add a Patient");
+            System.out.println("2. Add a Medical Professional");
+            System.out.println("3. Delete a Patient");
+            System.out.println("4. Delete a Medical Professional");
+            System.out.println("5. Search for a Patient");
+            System.out.println("6. Search for a Medical Professional");
+            System.out.println("7. Exit");
+            System.out.print("Choose an option: ");
 
-        Person foundPerson = hospital.searchPersonByName(nameToSearch);
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        if (foundPerson != null) {
-            System.out.println("Found Person: " + foundPerson);
-        } else {
-            System.out.println("Person not found.");
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Enter the patient's name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter the patient's age: ");
+                    int age = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter the patient's illness: ");
+                    String illness = scanner.nextLine();
+                    HospitalDatabase.addPatient(name, age, illness);
+                }
+                case 2 -> {
+                    System.out.print("Enter the medical professional's name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter the medical professional's specialization: ");
+                    String specialization = scanner.nextLine();
+                    HospitalDatabase.addMedicalProfessional(name, specialization);
+                }
+                case 3 -> {
+                    System.out.print("Enter the patient's name to delete: ");
+                    String name = scanner.nextLine();
+                    HospitalDatabase.deletePatient(name);
+                }
+                case 4 -> {
+                    System.out.print("Enter the medical professional's name to delete: ");
+                    String name = scanner.nextLine();
+                    HospitalDatabase.deleteMedicalProfessional(name);
+                }
+                case 5 -> {
+                    System.out.print("Enter the patient's name to search: ");
+                    String name = scanner.nextLine();
+                    HospitalDatabase.searchPatient(name);
+                }
+                case 6 -> {
+                    System.out.print("Enter the medical professional's name to search: ");
+                    String name = scanner.nextLine();
+                    HospitalDatabase.searchMedicalProfessional(name);
+                }
+                case 7 -> {
+                    exit = true;
+                    System.out.println("Exiting the program...");
+                }
+                default -> System.out.println("Invalid option. Please try again.");
+            }
         }
 
         scanner.close();
